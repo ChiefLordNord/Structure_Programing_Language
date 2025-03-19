@@ -37,17 +37,23 @@ def test_parse_factor():
     for s in ["1","22","333"]:
         tokens = tokenize(s)
         ast, tokens = parse_factor(tokens)
-        assert ast=={'tag': 'number', 'value': int(s)}
+        assert ast == {'tag': 'number', 'value': int(s)}
         assert tokens[0]['tag'] == None 
     for s in ["(1)","(22)"]:
         tokens = tokenize(s)
         ast, tokens = parse_factor(tokens)
         s_n = s.replace("(","").replace(")","")
-        assert ast=={'tag': 'number', 'value': int(s_n)}
+        assert ast == {'tag': 'number', 'value': int(s_n)}
         assert tokens[0]['tag'] == None 
     tokens = tokenize("(2+3)")
     ast, tokens = parse_factor(tokens)
     assert ast == {'tag': '+', 'left': {'tag': 'number', 'value': 2}, 'right': {'tag': 'number', 'value': 3}}
+    tokens = tokenize("42")
+    ast, tokens = parse_factor(tokens)
+    assert ast == {'tag': 'number', 'value': 42}  # Additional test case
+    tokens = tokenize("(3*4)")
+    ast, tokens = parse_factor(tokens)
+    assert ast == {'tag': '*', 'left': {'tag': 'number', 'value': 3}, 'right': {'tag': 'number', 'value': 4}}  # Additional test case
 
 def parse_term(tokens):
     """
@@ -69,7 +75,7 @@ def test_parse_term():
     for s in ["1","22","333"]:
         tokens = tokenize(s)
         ast, tokens = parse_term(tokens)
-        assert ast=={'tag': 'number', 'value': int(s)}
+        assert ast == {'tag': 'number', 'value': int(s)}
         assert tokens[0]['tag'] == None 
     tokens = tokenize("2*4")
     ast, tokens = parse_term(tokens)
@@ -77,6 +83,12 @@ def test_parse_term():
     tokens = tokenize("2*4/6")
     ast, tokens = parse_term(tokens)
     assert ast == {'tag': '/', 'left': {'tag': '*', 'left': {'tag': 'number', 'value': 2}, 'right': {'tag': 'number', 'value': 4}}, 'right': {'tag': 'number', 'value': 6}}
+    tokens = tokenize("3/1*2")
+    ast, tokens = parse_term(tokens)
+    assert ast == {'tag': '*', 'left': {'tag': '/', 'left': {'tag': 'number', 'value': 3}, 'right': {'tag': 'number', 'value': 1}}, 'right': {'tag': 'number', 'value': 2}}  # Additional test case
+    tokens = tokenize("5*6/3")
+    ast, tokens = parse_term(tokens)
+    assert ast == {'tag': '/', 'left': {'tag': '*', 'left': {'tag': 'number', 'value': 5}, 'right': {'tag': 'number', 'value': 6}}, 'right': {'tag': 'number', 'value': 3}}  # Additional test case
 
 def parse_expression(tokens):
     """
