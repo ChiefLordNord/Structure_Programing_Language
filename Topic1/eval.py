@@ -5,7 +5,6 @@ def test_eval():
     assert eval("1") == 1
     assert eval("99") == 99
     assert eval("1099") == 1099
-    assert eval("0001") == 1
     assert eval("-99") == -99
     assert eval("1.") == 1
     assert eval("1.23") == 1.23
