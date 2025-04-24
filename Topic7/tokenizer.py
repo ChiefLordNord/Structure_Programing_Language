@@ -40,6 +40,7 @@ patterns = [
     [r"\.", "."],
     [r"\,", ","],
     [r"\s+","whitespace"],
+    [r"achieff1", "achieff1"],  # Add achieff1 as a keyword
     [r".","error"]
 ]
 
@@ -122,7 +123,7 @@ def test_whitespace():
 def test_keywords():
     print("test keywords...")
     for keyword in [
-        "print","if","else","while","continue","break","return","assert","function"
+        "print","if","else","while","continue","break","return","assert","function","achieff1"  # Test achieff1
     ]:
         t = tokenize(keyword)
         assert len(t) == 2

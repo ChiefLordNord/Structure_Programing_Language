@@ -99,6 +99,9 @@ def evaluate(ast, environment={}):
         left_value = evaluate(ast["left"], environment)
         right_value = evaluate(ast["right"], environment)
         return left_value != right_value
+    if ast["tag"] == "achieff":
+        value = environment["_kentID"] = "achieff1@kent.edu"
+        return None
 
 
 def test_evaluate_number():
@@ -223,6 +226,12 @@ def test_while_statement():
     assert eval("while(x<6){y=y+1;x=x+1}",env) == None
     assert env["x"] == 6
     assert env["y"] == 7
+
+def test_evaluate_achieff1():
+    print("testing evaluate achieff1")
+    env = {}
+    assert eval("achieff1", env) == None
+    assert env["_kentID_"] == "achieff1@kent.edu"
 
 if __name__ == "__main__":
     test_evaluate_number()
