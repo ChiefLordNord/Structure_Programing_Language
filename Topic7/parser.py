@@ -670,18 +670,13 @@ def test_parse_function_statement():
     print(ast2)
     exit(0)
 
-def parse_achieff1_statement(tokens):
+def parse_achieff1_statement(tokens):  # Replace "achieff1" with your Kent ID
     """
-    achieff1 = "achieff1" "(" expression ")"
+    achieff1 = "achieff1"  # Replace "achieff1" with your Kent ID
     """
-    assert tokens[0]["tag"] == "achieff1", f"Expected 'achieff1', got {tokens[0]}"
+    assert tokens[0]["tag"] == "achieff1", f"Expected 'achieff1', got {tokens[0]}"  # Replace "achieff1" with your Kent ID
     tokens = tokens[1:]
-    assert tokens[0]["tag"] == "(", f"Expected '(', got {tokens[0]}"
-    tokens = tokens[1:]
-    expression, tokens = parse_expression(tokens)
-    assert tokens[0]["tag"] == ")", f"Expected ')', got {tokens[0]}"
-    tokens = tokens[1:]
-    return {"tag": "achieff1", "value": expression}, tokens
+    return {"tag": "achieff1"}, tokens  # Replace "achieff1" with your Kent ID
 
 def test_parse_achieff1_statement():
     """
@@ -692,11 +687,6 @@ def test_parse_achieff1_statement():
     ast, tokens = parse_achieff1_statement(tokens)
     assert ast == {
         "tag": "achieff1",
-        "value": {
-            "tag": "+",
-            "left": {"tag": "number", "value": 1},
-            "right": {"tag": "number", "value": 2},
-        },
     }
     assert tokens[0]["tag"] is None
 
@@ -715,7 +705,7 @@ def parse_statement(tokens):
         return parse_print_statement(tokens)
     if tag == "function":
         return parse_function_statement(tokens)
-    if tag == "achieff1":
+    if tag == "achieff1":  # Replace "achieff1" with your Kent ID
         return parse_achieff1_statement(tokens)
     return parse_assignment_statement(tokens)
 

@@ -40,7 +40,7 @@ patterns = [
     [r"\.", "."],
     [r"\,", ","],
     [r"\s+","whitespace"],
-    [r"achieff1", "achieff1"],  # Add achieff1 as a keyword
+    [r"achieff1", "achieff1"],  # Replace "achieff1" with your Kent ID
     [r".","error"]
 ]
 

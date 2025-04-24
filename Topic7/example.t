@@ -5,5 +5,6 @@ print (3 < 4)
 
 homework = cool
 if (homework == cool) {
-    achieff1
-    print(_kentID_)}
+    achieff1;  # Replace "achieff1" with your Kent ID
+    print(_kentid_);
+}

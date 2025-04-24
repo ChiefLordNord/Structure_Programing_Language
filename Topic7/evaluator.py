@@ -102,6 +102,9 @@ def evaluate(ast, environment={}):
     if ast["tag"] == "achieff":
         value = environment["_kentID"] = "achieff1@kent.edu"
         return None
+    if ast["tag"] == "achieff1":  # Replace "achieff1" with your Kent ID
+        environment["_kentid_"] = "achieff1@kent.edu"  # Replace "achieff1" with your Kent ID
+        return None
 
 
 def test_evaluate_number():
