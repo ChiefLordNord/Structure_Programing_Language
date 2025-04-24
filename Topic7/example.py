@@ -5,5 +5,7 @@ print(3 < 4)
 
 homework = True
 if (homework == True):
-    achie  # Add Kent ID statement example
+    achie = "Kent ID: 12345"  # Add Kent ID statement example
+    _kentid_ = "12345"  # Define the "_kentid_" variable
+    print(achie)
     print(_kentid_)  # Print the "_kentid_" variable
