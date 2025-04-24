@@ -40,8 +40,7 @@ patterns = [
     [r"\.", "."],
     [r"\,", ","],
     [r"\s+","whitespace"],
-    [r".","error"],
-    [r"achie", "achie"],  # Add Kent ID pattern for "achie"
+    [r".","error"]
 ]
 
 for pattern in patterns:
