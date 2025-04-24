@@ -26,7 +26,8 @@ grammar = """
     print_statement = "print" [ expression ]
     if_statement = "if" "(" expression ")" statement_block [ "else" statement_block ]
     while_statement = "while" "(" expression ")" statement_block
-    statement = statement_block | if_statement | while_statement | print_statement | assignment_statement
+    kentid_statement = "achie"
+    statement = statement_block | if_statement | while_statement | print_statement | assignment_statement | kentid_statement
     function_statement = "function" identifier identifier_list statement_block
     program = [ statement { ";" statement } ]
 """
@@ -669,10 +670,26 @@ def test_parse_function_statement():
     print(ast2)
     exit(0)
 
+def parse_kentid_statement(tokens):
+    """
+    kentid_statement = "achie"
+    """
+    assert tokens[0]["tag"] == "achie", f"Expected 'achie', got {tokens[0]}"  # Ensure the token matches "achie"
+    return {"tag": "achie"}, tokens[1:]  # Return AST node for Kent ID statement
+
+def test_parse_kentid_statement():
+    """
+    kentid_statement = "achie"
+    """
+    print("testing parse_kentid_statement...")
+    tokens = tokenize("achie")
+    ast, tokens = parse_kentid_statement(tokens)
+    assert ast == {"tag": "achie"}  # Verify AST node for Kent ID statement
+    assert tokens[0]["tag"] is None
 
 def parse_statement(tokens):
     """
-    statement = statement_block | if_statement | while_statement | print_statement | assignment_statement
+    statement = statement_block | if_statement | while_statement | print_statement | assignment_statement | kentid_statement
     """
     tag = tokens[0]["tag"]
     if tag == "{":
@@ -685,11 +702,13 @@ def parse_statement(tokens):
         return parse_print_statement(tokens)
     if tag == "function":
         return parse_function_statement(tokens)
+    if tag == "achie":  # Add Kent ID statement parsing
+        return parse_kentid_statement(tokens)
     return parse_assignment_statement(tokens)
 
 def test_parse_statement():
     """
-    statement = statement_block | if_statement | while_statement | print_statement | assignment_statement
+    statement = statement_block | if_statement | while_statement | print_statement | assignment_statement | kentid_statement
     """
     print("testing parse_statement...")
     ast, _ = parse_statement(tokenize("{print 1}"))
@@ -698,6 +717,8 @@ def test_parse_statement():
     assert ast == {"tag": "print", "value": {"tag": "number", "value": 1}}
     ast, _ = parse_statement(tokenize("x=3"))
     assert ast == {"tag": "assign", "target": {"tag": "identifier", "value": "x"}, "value": {"tag": "number", "value": 3}}
+    ast, _ = parse_statement(tokenize("achie"))
+    assert ast == {"tag": "achie"}  # Verify parsing of Kent ID statement
 
 def parse_program(tokens):
     """
@@ -757,6 +778,7 @@ if __name__ == "__main__":
         test_parse_while_statement,
         test_parse_assignment_statement,
         test_parse_function_statement,
+        test_parse_kentid_statement,
         test_parse_statement,
         test_parse_program,
     ]

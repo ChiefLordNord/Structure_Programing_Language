@@ -99,6 +99,9 @@ def evaluate(ast, environment={}):
         left_value = evaluate(ast["left"], environment)
         right_value = evaluate(ast["right"], environment)
         return left_value != right_value
+    if ast["tag"] == "achie":  # Add evaluation for Kent ID statement
+        environment["_kentid_"] = "achie@kent.edu"  # Insert "_kentid_" into the environment
+        return None
 
 
 def test_evaluate_number():
@@ -224,6 +227,12 @@ def test_while_statement():
     assert env["x"] == 6
     assert env["y"] == 7
 
+def test_evaluate_kentid():
+    print("testing evaluate Kent ID")
+    env = {}
+    assert eval("achie", env) == None
+    assert env["_kentid_"] == "achie@kent.edu"  # Verify "_kentid_" is set correctly
+
 if __name__ == "__main__":
     test_evaluate_number()
     test_evaluate_addition()
@@ -235,4 +244,5 @@ if __name__ == "__main__":
     test_evaluate_identifier()
     test_if_statement()
     test_while_statement()
+    test_evaluate_kentid()  # Add test for Kent ID evaluation
     print("done.")
